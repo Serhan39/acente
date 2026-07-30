@@ -78,3 +78,20 @@ Veritabanını görsel olarak incelemek için:
 ```bash
 npm run prisma:studio
 ```
+
+## Yayına Alma (Deploy)
+
+Bu proje standart bir Node.js + PostgreSQL uygulaması olduğu için **paylaşımlı (shared) hosting'lerde çalışmaz** — Node.js Selector ve terminal/SSH erişimi olmayan paketlerde (çoğu "sınırsız" paylaşımlı paket) barındırılamaz. Node.js çalıştırabilen bir servise ihtiyaç var. En kolay ücretsiz seçenek **Railway**:
+
+1. [railway.app](https://railway.app) üzerinde GitHub hesabınızla giriş yapın.
+2. **New Project → Deploy from GitHub repo** ile `serhan39/acente` reposunu seçin.
+3. Servis ayarlarında **Root Directory** olarak `backend` yazın (repo bir monorepo, backend alt klasörde).
+4. Aynı projeye **+ New → Database → PostgreSQL** ekleyin. Railway otomatik olarak `DATABASE_URL` değişkenini backend servisine bağlar (Variables sekmesinden "Reference" ile bağlayın).
+5. Backend servisinin **Variables** kısmına ekleyin:
+   - `JWT_SECRET` — uzun/rastgele bir metin
+   - `JWT_EXPIRES_IN` — `7d`
+   - `CORS_ORIGIN` — `*`
+6. Deploy tamamlanınca Railway size `https://xxxxx.up.railway.app` gibi bir genel adres verir. `npm start` komutu deploy sırasında otomatik olarak `prisma migrate deploy` çalıştırıp veritabanı şemasını kurar (`package.json` içindeki `start` script'i buna göre ayarlandı).
+7. Bu adresi mobil uygulamanın `.env` dosyasında `EXPO_PUBLIC_API_URL=https://xxxxx.up.railway.app/api` şeklinde kullanın.
+
+Alternatif olarak Render.com veya Fly.io da benzer şekilde Node.js + PostgreSQL barındırabilir.
