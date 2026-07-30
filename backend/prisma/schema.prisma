@@ -1,0 +1,197 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AccountType {
+  CUSTOMER
+  VENDOR
+  BOTH
+}
+
+enum CashAccountType {
+  CASH
+  BANK
+}
+
+enum CategoryType {
+  INCOME
+  EXPENSE
+}
+
+enum TransactionType {
+  INCOME
+  EXPENSE
+  TRANSFER
+}
+
+enum InvoiceType {
+  SALE
+  PURCHASE
+}
+
+enum InvoiceStatus {
+  DRAFT
+  SENT
+  PAID
+  PARTIALLY_PAID
+  OVERDUE
+  CANCELLED
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  password     String
+  fullName     String
+  companyName  String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  accounts      Account[]
+  cashAccounts  CashAccount[]
+  categories    Category[]
+  transactions  Transaction[]
+  invoices      Invoice[]
+
+  @@map("users")
+}
+
+model Account {
+  id         String      @id @default(uuid())
+  userId     String
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name       String
+  type       AccountType @default(CUSTOMER)
+  taxNumber  String?
+  phone      String?
+  email      String?
+  address    String?
+  balance    Decimal     @default(0) @db.Decimal(14, 2)
+  isActive   Boolean     @default(true)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  transactions Transaction[]
+  invoices     Invoice[]
+
+  @@index([userId])
+  @@map("accounts")
+}
+
+model CashAccount {
+  id         String          @id @default(uuid())
+  userId     String
+  user       User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name       String
+  type       CashAccountType @default(CASH)
+  currency   String          @default("TRY")
+  iban       String?
+  bankName   String?
+  balance    Decimal         @default(0) @db.Decimal(14, 2)
+  isActive   Boolean         @default(true)
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+
+  transactions        Transaction[]
+  transferTransactions Transaction[] @relation("TransferTarget")
+
+  @@index([userId])
+  @@map("cash_accounts")
+}
+
+model Category {
+  id        String       @id @default(uuid())
+  userId    String
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name      String
+  type      CategoryType
+  color     String       @default("#4F46E5")
+  icon      String       @default("tag")
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  transactions Transaction[]
+
+  @@index([userId])
+  @@map("categories")
+}
+
+model Transaction {
+  id             String          @id @default(uuid())
+  userId         String
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type           TransactionType
+  amount         Decimal         @db.Decimal(14, 2)
+  date           DateTime        @default(now())
+  description    String?
+
+  categoryId     String?
+  category       Category?       @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+  cashAccountId  String
+  cashAccount    CashAccount     @relation(fields: [cashAccountId], references: [id], onDelete: Cascade)
+
+  targetCashAccountId String?
+  targetCashAccount   CashAccount? @relation("TransferTarget", fields: [targetCashAccountId], references: [id], onDelete: SetNull)
+
+  accountId      String?
+  account        Account?        @relation(fields: [accountId], references: [id], onDelete: SetNull)
+
+  invoiceId      String?
+  invoice        Invoice?        @relation(fields: [invoiceId], references: [id], onDelete: SetNull)
+
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  @@index([userId])
+  @@index([cashAccountId])
+  @@index([accountId])
+  @@map("transactions")
+}
+
+model Invoice {
+  id            String        @id @default(uuid())
+  userId        String
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accountId     String
+  account       Account       @relation(fields: [accountId], references: [id], onDelete: Restrict)
+  invoiceNumber String
+  type          InvoiceType   @default(SALE)
+  status        InvoiceStatus @default(DRAFT)
+  issueDate     DateTime      @default(now())
+  dueDate       DateTime?
+  subtotal      Decimal       @default(0) @db.Decimal(14, 2)
+  vatTotal      Decimal       @default(0) @db.Decimal(14, 2)
+  total         Decimal       @default(0) @db.Decimal(14, 2)
+  paidAmount    Decimal       @default(0) @db.Decimal(14, 2)
+  notes         String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  items         InvoiceItem[]
+  transactions  Transaction[]
+
+  @@unique([userId, invoiceNumber])
+  @@index([userId])
+  @@index([accountId])
+  @@map("invoices")
+}
+
+model InvoiceItem {
+  id          String  @id @default(uuid())
+  invoiceId   String
+  invoice     Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  description String
+  quantity    Decimal @default(1) @db.Decimal(12, 2)
+  unitPrice   Decimal @db.Decimal(14, 2)
+  vatRate     Decimal @default(20) @db.Decimal(5, 2)
+  total       Decimal @db.Decimal(14, 2)
+
+  @@index([invoiceId])
+  @@map("invoice_items")
+}
