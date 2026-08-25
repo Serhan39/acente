@@ -34,7 +34,7 @@ kullanılır — yeni bir kart eklemek birkaç satırlık veri girmekten ibarett
    ```
 
 Yayına aldıktan sonra kart `https://<domain>/<slug>/` adresinde erişilebilir
-olur (örn. `https://kartvisit.techburda.com/serhan/`).
+olur (örn. `https://kart.techburda.com/serhan/`).
 
 ## Yayına alma (GitHub Pages)
 
@@ -48,9 +48,9 @@ olur (örn. `https://kartvisit.techburda.com/serhan/`).
 
 `techburda.com` gibi kendi domaininizle yayınlamak için:
 
-1. Domain sağlayıcınızda bir **CNAME kaydı** ekleyin: `kartvisit` → `<kullanici-adiniz>.github.io`
-2. GitHub'da **Settings → Pages → Custom domain** kutusuna `kartvisit.techburda.com` yazıp kaydedin
-   (bu, `docs/CNAME` dosyasını otomatik oluşturur/günceller)
+1. Domain sağlayıcınızda bir **CNAME kaydı** ekleyin: `kart` → `<kullanici-adiniz>.github.io`
+2. GitHub'da **Settings → Pages → Custom domain** kutusuna `kart.techburda.com` yazıp kaydedin
+   (bu, `docs/CNAME` dosyasını otomatik oluşturur/günceller — zaten `kart.techburda.com` olarak repoda mevcut)
 3. DNS yayıldıktan sonra **"Enforce HTTPS"** kutusunu işaretleyin
 
 ## NFC kartvizite yazma
