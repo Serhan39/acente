@@ -3,242 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Serhan Merkit — Sertek Yazılım ve Bilişim Teknolojileri</title>
-<meta name="description" content="Serhan Merkit — Sertek Yazılım ve Bilişim Teknolojileri dijital kartviziti">
+<title>Dijital Kartvizitler</title>
+<meta name="description" content="Ekip dijital kartvizit dizini">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cpath d='M40 100a60 60 0 0 1 120 0' stroke='%2316181A' stroke-width='18' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='100' cy='105' r='40' fill='%232CA9D6'/%3E%3Ccircle cx='100' cy='105' r='22' fill='%2316181A'/%3E%3Ccircle cx='111' cy='94' r='6' fill='white'/%3E%3Cpath d='M55 128a55 55 0 0 0 100 0' stroke='%237FB539' stroke-width='16' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
-<style>
-  :root{
-    --ink:#16181a;
-    --muted:#666f76;
-    --line:#e7e9ea;
-    --blue:#2CA9D6;
-    --green:#7FB539;
-    --bg:#f4f5f6;
-    --card:#ffffff;
-  }
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
-  body{
-    background:var(--bg);
-    color:var(--ink);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:32px 16px;
-  }
-  .card{
-    width:100%;
-    max-width:400px;
-    background:var(--card);
-    border-radius:24px;
-    box-shadow:0 1px 3px rgba(16,20,24,.06), 0 16px 40px rgba(16,20,24,.08);
-    overflow:hidden;
-  }
-  .header{
-    padding:36px 24px 20px;
-    text-align:center;
-    border-bottom:1px solid var(--line);
-  }
-  .mark{width:76px;height:76px;margin:0 auto 14px;}
-  h1{
-    font-size:22px;
-    margin:0 0 4px;
-    letter-spacing:-.01em;
-  }
-  .role{
-    color:var(--muted);
-    font-size:14px;
-    margin:0 0 2px;
-    line-height:1.4;
-  }
-  .org{
-    font-size:14px;
-    font-weight:600;
-    margin:2px 0 0;
-  }
-  .org .green{color:var(--green);}
-  .org .blue{color:var(--blue);}
-
-  .actions{
-    display:flex;
-    gap:10px;
-    padding:18px 20px 4px;
-  }
-  .action{
-    flex:1;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:6px;
-    padding:12px 4px;
-    border-radius:14px;
-    text-decoration:none;
-    color:var(--ink);
-    font-size:11.5px;
-    font-weight:600;
-    background:var(--bg);
-    transition:background .15s ease;
-  }
-  .action:active{background:var(--line);}
-  .action svg{width:22px;height:22px;}
-  .action.call svg{color:var(--blue);}
-  .action.whatsapp svg{color:#25D366;}
-  .action.mail svg{color:var(--green);}
-  .action.share svg{color:var(--ink);}
-
-  .list{padding:6px 12px 4px;}
-  .row{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    padding:13px 12px;
-    text-decoration:none;
-    color:var(--ink);
-    border-radius:14px;
-  }
-  .row:active{background:var(--bg);}
-  .row .icon{
-    width:38px;height:38px;
-    border-radius:10px;
-    background:var(--bg);
-    display:flex;align-items:center;justify-content:center;
-    flex-shrink:0;
-  }
-  .row .icon svg{width:19px;height:19px;color:var(--ink);}
-  .row .text{min-width:0;}
-  .row .label{font-size:11px;color:var(--muted);margin-bottom:1px;}
-  .row .value{font-size:14.5px;font-weight:500;overflow-wrap:anywhere;}
-
-  .cta{
-    margin:14px 20px 6px;
-    display:block;
-    text-align:center;
-    padding:14px;
-    border-radius:14px;
-    background:var(--ink);
-    color:#fff;
-    font-weight:700;
-    font-size:15px;
-    text-decoration:none;
-    letter-spacing:-.01em;
-  }
-  .cta:active{opacity:.85;}
-
-  .qr-wrap{
-    margin:22px 20px 4px;
-    padding:18px;
-    border-radius:16px;
-    background:var(--bg);
-    display:flex;
-    align-items:center;
-    gap:14px;
-  }
-  .qr-wrap img{
-    width:84px;height:84px;
-    border-radius:8px;
-    background:#fff;
-    padding:4px;
-  }
-  .qr-text{font-size:12.5px;color:var(--muted);line-height:1.45;}
-  .qr-text b{color:var(--ink);display:block;font-size:13.5px;margin-bottom:2px;}
-
-  footer{
-    text-align:center;
-    padding:20px 20px 26px;
-    font-size:11px;
-    color:var(--muted);
-  }
-</style>
+<link rel="stylesheet" href="assets/card.css">
 </head>
 <body>
-  <div class="card">
-    <div class="header">
-      <svg class="mark" viewBox="0 0 200 200" aria-hidden="true">
-        <path d="M40 100a60 60 0 0 1 120 0" stroke="#16181A" stroke-width="18" fill="none" stroke-linecap="round"/>
-        <circle cx="100" cy="105" r="40" fill="#2CA9D6"/>
-        <circle cx="100" cy="105" r="22" fill="#16181A"/>
-        <circle cx="111" cy="94" r="6" fill="white"/>
-        <path d="M55 128a55 55 0 0 0 100 0" stroke="#7FB539" stroke-width="16" fill="none" stroke-linecap="round"/>
-      </svg>
-      <h1>Serhan Merkit</h1>
-      <p class="org"><span class="blue">Sertek</span> Yazılım ve <span class="green">Bilişim</span> Teknolojileri</p>
-    </div>
-
-    <div class="actions">
-      <a class="action call" href="tel:+905059132539">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        Ara
-      </a>
-      <a class="action whatsapp" href="https://wa.me/905059132539" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.5 0-9.96 4.46-9.96 9.96 0 1.76.46 3.47 1.33 4.98L2 22l5.2-1.36a9.94 9.94 0 0 0 4.84 1.23h.01c5.5 0 9.96-4.46 9.96-9.96S17.55 2 12.04 2zm5.83 14.24c-.25.7-1.24 1.28-2.02 1.45-.54.11-1.24.2-3.6-.77-2.9-1.2-4.77-4.15-4.92-4.35-.14-.2-1.18-1.57-1.18-3 0-1.43.75-2.13 1.02-2.42.27-.29.58-.36.78-.36.2 0 .4 0 .57.01.18.01.43-.07.67.51.25.6.86 2.08.93 2.23.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.45.54-.15.15-.3.31-.13.61.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.48.13.65-.08.18-.2.75-.87.95-1.17.2-.3.4-.25.67-.15.27.1 1.72.81 2.02.96.3.15.5.22.57.35.08.13.08.75-.17 1.45z"/></svg>
-        WhatsApp
-      </a>
-      <a class="action mail" href="mailto:info@sertekbilisim.com">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6c0-1.1-.9-2-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h16a2 2 0 0 0 2-2V6z"/><path d="m22 6-10 7L2 6"/></svg>
-        E-posta
-      </a>
-      <a class="action share" href="#" id="shareBtn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-        Paylaş
-      </a>
-    </div>
-
-    <div class="list">
-      <a class="row" href="tel:+905059132539">
-        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
-        <span class="text"><span class="label">Telefon</span><span class="value">0505 913 25 39</span></span>
-      </a>
-      <a class="row" href="mailto:info@sertekbilisim.com">
-        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 6c0-1.1-.9-2-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h16a2 2 0 0 0 2-2V6z"/><path d="m22 6-10 7L2 6"/></svg></span>
-        <span class="text"><span class="label">E-posta</span><span class="value">info@sertekbilisim.com</span></span>
-      </a>
-      <a class="row" href="https://www.sertekbilisim.com" target="_blank" rel="noopener">
-        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
-        <span class="text"><span class="label">Web Sitesi</span><span class="value">www.sertekbilisim.com</span></span>
-      </a>
-      <a class="row" href="https://www.instagram.com/sertek07/" target="_blank" rel="noopener">
-        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></span>
-        <span class="text"><span class="label">Instagram</span><span class="value">@sertek07</span></span>
-      </a>
-    </div>
-
-    <a class="cta" href="serhan-merkit.vcf" download>Rehbere Ekle</a>
-
-    <div class="qr-wrap">
-      <img id="qrImg" alt="Kartvizit QR kodu" width="84" height="84">
-      <div class="qr-text">
-        <b>Karekodu okutun</b>
-        Bu sayfayı anında telefonunuza açmak için kamerayla okutmanız yeterli.
-      </div>
-    </div>
-
-    <footer>Dijital Kartvizit · Sertek Yazılım ve Bilişim Teknolojileri</footer>
+  <div class="dir">
+    <div class="dir-header" id="dirHeader"></div>
+    <div class="dir-list" id="dirList"></div>
   </div>
 
-<script>
-  var url = window.location.href;
-  document.getElementById('qrImg').src =
-    'https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=0&data=' + encodeURIComponent(url);
+  <script src="assets/card.js"></script>
+  <script>
+    // Yeni çalışan eklemek için buraya bir satır ekleyin ve
+    // docs/<slug>/index.html + docs/<slug>/<isim>.vcf dosyalarını oluşturun.
+    var employees = [
+      { slug: "serhan", name: "Serhan Merkit", org: "Sertek Yazılım ve Bilişim Teknolojileri" },
+      { slug: "aykut", name: "Aykut Ay", org: "Sertek Yazılım ve Bilişim Teknolojileri" }
+    ];
 
-  var shareBtn = document.getElementById('shareBtn');
-  shareBtn.addEventListener('click', function (e) {
-    e.preventDefault();
-    if (navigator.share) {
-      navigator.share({
-        title: 'Serhan Merkit — Sertek Yazılım ve Bilişim Teknolojileri',
-        text: 'Dijital kartvizitim',
-        url: url
-      }).catch(function () {});
-    } else if (navigator.clipboard) {
-      navigator.clipboard.writeText(url).then(function () {
-        alert('Bağlantı kopyalandı: ' + url);
-      });
-    } else {
-      window.prompt('Bağlantıyı kopyalayın:', url);
+    document.getElementById('dirHeader').innerHTML =
+      TechburdaCard.mark + '<h1>Dijital Kartvizitler</h1><p>Ekip üyelerimizin kartvizitine ulaşmak için seçin</p>';
+
+    function initials(name) {
+      return name.split(' ').map(function (p) { return p[0]; }).join('').slice(0, 2).toUpperCase();
     }
-  });
-</script>
+
+    document.getElementById('dirList').innerHTML = employees.map(function (e) {
+      return '<a class="dir-item" href="' + e.slug + '/">' +
+        '<span class="dir-avatar">' + initials(e.name) + '</span>' +
+        '<span class="dir-text"><span class="dir-name">' + e.name + '</span>' +
+        '<span class="dir-org">' + e.org + '</span></span>' +
+        '<span class="dir-arrow">›</span></a>';
+    }).join('');
+  </script>
 </body>
 </html>

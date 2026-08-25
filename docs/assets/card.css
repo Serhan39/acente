@@ -1,0 +1,187 @@
+:root{
+  --ink:#16181a;
+  --muted:#666f76;
+  --line:#e7e9ea;
+  --blue:#2CA9D6;
+  --green:#7FB539;
+  --bg:#f4f5f6;
+  --card:#ffffff;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:32px 16px;
+}
+.card{
+  width:100%;
+  max-width:400px;
+  background:var(--card);
+  border-radius:24px;
+  box-shadow:0 1px 3px rgba(16,20,24,.06), 0 16px 40px rgba(16,20,24,.08);
+  overflow:hidden;
+}
+.header{
+  padding:36px 24px 20px;
+  text-align:center;
+  border-bottom:1px solid var(--line);
+}
+.mark{width:76px;height:76px;margin:0 auto 14px;}
+h1{
+  font-size:22px;
+  margin:0 0 4px;
+  letter-spacing:-.01em;
+}
+.role{
+  color:var(--muted);
+  font-size:14px;
+  margin:0 0 2px;
+  line-height:1.4;
+}
+.org{
+  font-size:14px;
+  font-weight:600;
+  margin:2px 0 0;
+}
+.org .green{color:var(--green);}
+.org .blue{color:var(--blue);}
+
+.actions{
+  display:flex;
+  gap:10px;
+  padding:18px 20px 4px;
+}
+.action{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  padding:12px 4px;
+  border-radius:14px;
+  text-decoration:none;
+  color:var(--ink);
+  font-size:11.5px;
+  font-weight:600;
+  background:var(--bg);
+  transition:background .15s ease;
+}
+.action:active{background:var(--line);}
+.action svg{width:22px;height:22px;}
+.action.call svg{color:var(--blue);}
+.action.whatsapp svg{color:#25D366;}
+.action.mail svg{color:var(--green);}
+.action.share svg{color:var(--ink);}
+
+.list{padding:6px 12px 4px;}
+.row{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:13px 12px;
+  text-decoration:none;
+  color:var(--ink);
+  border-radius:14px;
+}
+.row:active{background:var(--bg);}
+.row .icon{
+  width:38px;height:38px;
+  border-radius:10px;
+  background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.row .icon svg{width:19px;height:19px;color:var(--ink);}
+.row .text{min-width:0;}
+.row .label{font-size:11px;color:var(--muted);margin-bottom:1px;}
+.row .value{font-size:14.5px;font-weight:500;overflow-wrap:anywhere;}
+
+.cta{
+  margin:14px 20px 6px;
+  display:block;
+  text-align:center;
+  padding:14px;
+  border-radius:14px;
+  background:var(--ink);
+  color:#fff;
+  font-weight:700;
+  font-size:15px;
+  text-decoration:none;
+  letter-spacing:-.01em;
+}
+.cta:active{opacity:.85;}
+
+.qr-wrap{
+  margin:22px 20px 4px;
+  padding:18px;
+  border-radius:16px;
+  background:var(--bg);
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.qr-wrap img{
+  width:84px;height:84px;
+  border-radius:8px;
+  background:#fff;
+  padding:4px;
+}
+.qr-text{font-size:12.5px;color:var(--muted);line-height:1.45;}
+.qr-text b{color:var(--ink);display:block;font-size:13.5px;margin-bottom:2px;}
+
+footer{
+  text-align:center;
+  padding:20px 20px 26px;
+  font-size:11px;
+  color:var(--muted);
+}
+
+/* Dizin (directory) sayfası */
+.dir{
+  width:100%;
+  max-width:420px;
+}
+.dir-header{
+  text-align:center;
+  margin-bottom:22px;
+}
+.dir-header .mark{width:64px;height:64px;}
+.dir-header h1{font-size:19px;margin:0;}
+.dir-header p{color:var(--muted);font-size:13px;margin:4px 0 0;}
+.dir-list{
+  background:var(--card);
+  border-radius:20px;
+  box-shadow:0 1px 3px rgba(16,20,24,.06), 0 16px 40px rgba(16,20,24,.08);
+  overflow:hidden;
+}
+.dir-item{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:16px 18px;
+  text-decoration:none;
+  color:var(--ink);
+  border-bottom:1px solid var(--line);
+}
+.dir-item:last-child{border-bottom:none;}
+.dir-item:active{background:var(--bg);}
+.dir-avatar{
+  width:44px;height:44px;
+  border-radius:50%;
+  background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;
+  font-size:15px;
+  color:var(--ink);
+  flex-shrink:0;
+}
+.dir-text{min-width:0;flex:1;}
+.dir-name{font-size:15px;font-weight:600;}
+.dir-org{font-size:12.5px;color:var(--muted);margin-top:1px;}
+.dir-arrow{color:var(--muted);flex-shrink:0;}
