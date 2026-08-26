@@ -96,6 +96,15 @@ export interface DashboardSummary {
   openInvoices: Invoice[];
 }
 
+export interface ReceiptScanResult {
+  type: "INCOME" | "EXPENSE";
+  amount: number;
+  date: string | null;
+  description: string;
+  categoryId: string | null;
+  categoryName: string | null;
+}
+
 export interface Paginated<T> {
   items: T[];
   total: number;

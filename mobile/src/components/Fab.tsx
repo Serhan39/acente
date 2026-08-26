@@ -1,12 +1,22 @@
 import React from "react";
-import { Pressable, StyleSheet } from "react-native";
+import { Pressable, StyleSheet, ViewStyle } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { colors, radius } from "../theme/theme";
 
-export function Fab({ onPress, icon = "add" }: { onPress: () => void; icon?: keyof typeof Ionicons.glyphMap }) {
+interface FabProps {
+  onPress: () => void;
+  icon?: keyof typeof Ionicons.glyphMap;
+  style?: ViewStyle;
+  size?: number;
+}
+
+export function Fab({ onPress, icon = "add", style, size = 56 }: FabProps) {
   return (
-    <Pressable style={({ pressed }) => [styles.fab, pressed && { opacity: 0.85 }]} onPress={onPress}>
-      <Ionicons name={icon} size={26} color="#fff" />
+    <Pressable
+      style={({ pressed }) => [styles.fab, { width: size, height: size, borderRadius: size / 2 }, style, pressed && { opacity: 0.85 }]}
+      onPress={onPress}
+    >
+      <Ionicons name={icon} size={size === 56 ? 26 : 22} color="#fff" />
     </Pressable>
   );
 }
