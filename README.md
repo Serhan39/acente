@@ -16,6 +16,7 @@ acente/
 - **Kasa/Banka Yönetimi** — birden fazla nakit/banka hesabı, hesaplar arası transfer
 - **Cari Hesap (Müşteri/Tedarikçi)** — bakiye takibi, hesap ekstresi (fatura + tahsilat/ödeme geçmişi)
 - **Faturalama** — satış/alış faturası, çoklu kalem, otomatik KDV hesaplama, kısmi/tam tahsilat, iptal
+- **Fişten Otomatik İşlem** — fiş/fatura fotoğrafı çekilir, Claude (Anthropic API) tutar/tarih/kategori bilgilerini otomatik çıkarır, kullanıcı onaylayınca işlem kaydedilir
 - **Dashboard** — net değer, aylık gelir/gider grafiği, açık faturalar, son işlemler
 - **Kimlik Doğrulama** — JWT tabanlı kayıt/giriş, güvenli token saklama (SecureStore)
 

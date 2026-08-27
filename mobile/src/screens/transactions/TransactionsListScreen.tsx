@@ -102,6 +102,12 @@ export function TransactionsListScreen({ navigation }: Props) {
         />
       )}
 
+      <Fab
+        icon="camera"
+        size={48}
+        style={{ right: 20, bottom: 92 }}
+        onPress={() => navigation.navigate("ReceiptScan")}
+      />
       <Fab onPress={() => navigation.navigate("TransactionForm", undefined)} />
     </SafeAreaView>
   );

@@ -20,6 +20,15 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "Fiş/fatura fotoğrafı çekebilmek için kameranıza erişim gerekiyor.",
+          "photosPermission": "Fiş/fatura fotoğrafı seçebilmek için galerinize erişim gerekiyor."
+        }
+      ]
+    ]
   }
 }
