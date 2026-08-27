@@ -32,7 +32,7 @@ body{
   text-align:center;
   border-bottom:1px solid var(--line);
 }
-.mark{width:76px;height:76px;margin:0 auto 14px;}
+.mark{width:76px;height:76px;margin:0 auto 14px;display:block;object-fit:contain;}
 h1{
   font-size:22px;
   margin:0 0 4px;

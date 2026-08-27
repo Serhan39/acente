@@ -11,61 +11,70 @@
     mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 6c0-1.1-.9-2-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h16a2 2 0 0 0 2-2V6z"/><path d="m22 6-10 7L2 6"/></svg>',
     globe: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
     instagram: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>',
-    share: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>'
+    share: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>',
+    pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>'
   };
 
-  var MARK = '<svg class="mark" viewBox="0 0 200 200" aria-hidden="true">' +
-    '<path d="M40 100a60 60 0 0 1 120 0" stroke="#16181A" stroke-width="18" fill="none" stroke-linecap="round"/>' +
-    '<circle cx="100" cy="105" r="40" fill="#2CA9D6"/>' +
-    '<circle cx="100" cy="105" r="22" fill="#16181A"/>' +
-    '<circle cx="111" cy="94" r="6" fill="white"/>' +
-    '<path d="M55 128a55 55 0 0 0 100 0" stroke="#7FB539" stroke-width="16" fill="none" stroke-linecap="round"/>' +
-    '</svg>';
-
   window.TechburdaCard = {
-    mark: MARK,
+    markHtml: function (src) {
+      return '<img class="mark" src="' + esc(src) + '" alt="Sertek Bilişim" width="76" height="76">';
+    },
 
-    // data: {name, orgHtml, phone, phoneDisplay, email, website, websiteDisplay, instagram, instagramDisplay, vcf}
+    // data: {name, orgHtml, phone, phoneDisplay, email, website, websiteDisplay, instagram, instagramDisplay, address, mapsUrl, markSrc, vcf}
     render: function (data) {
-      document.title = data.name + ' — ' + data.name.split(' ')[0];
-
       var rows = '';
-      rows += '<a class="row" href="tel:' + esc(data.phone) + '">' +
+      rows += '<a class="row" data-ga="contact_click" data-ga-method="phone_row" href="tel:' + esc(data.phone) + '">' +
         '<span class="icon">' + ICONS.phone + '</span>' +
         '<span class="text"><span class="label">Telefon</span><span class="value">' + esc(data.phoneDisplay) + '</span></span></a>';
-      rows += '<a class="row" href="mailto:' + esc(data.email) + '">' +
+      rows += '<a class="row" data-ga="contact_click" data-ga-method="email_row" href="mailto:' + esc(data.email) + '">' +
         '<span class="icon">' + ICONS.mail + '</span>' +
         '<span class="text"><span class="label">E-posta</span><span class="value">' + esc(data.email) + '</span></span></a>';
       if (data.website) {
-        rows += '<a class="row" href="' + esc(data.website) + '" target="_blank" rel="noopener">' +
+        rows += '<a class="row" data-ga="contact_click" data-ga-method="website" href="' + esc(data.website) + '" target="_blank" rel="noopener">' +
           '<span class="icon">' + ICONS.globe + '</span>' +
           '<span class="text"><span class="label">Web Sitesi</span><span class="value">' + esc(data.websiteDisplay || data.website) + '</span></span></a>';
       }
       if (data.instagram) {
-        rows += '<a class="row" href="' + esc(data.instagram) + '" target="_blank" rel="noopener">' +
+        rows += '<a class="row" data-ga="contact_click" data-ga-method="instagram" href="' + esc(data.instagram) + '" target="_blank" rel="noopener">' +
           '<span class="icon">' + ICONS.instagram + '</span>' +
           '<span class="text"><span class="label">Instagram</span><span class="value">' + esc(data.instagramDisplay || '') + '</span></span></a>';
       }
+      if (data.address) {
+        rows += '<a class="row" data-ga="contact_click" data-ga-method="address" href="' + esc(data.mapsUrl || ('https://maps.google.com/?q=' + encodeURIComponent(data.address))) + '" target="_blank" rel="noopener">' +
+          '<span class="icon">' + ICONS.pin + '</span>' +
+          '<span class="text"><span class="label">Adres</span><span class="value">' + esc(data.address) + '</span></span></a>';
+      }
 
       var html = '<div class="card">' +
-        '<div class="header">' + MARK +
+        '<div class="header">' + TechburdaCard.markHtml(data.markSrc) +
         '<h1>' + esc(data.name) + '</h1>' +
         '<p class="org">' + (data.orgHtml || esc(data.org || '')) + '</p>' +
         '</div>' +
         '<div class="actions">' +
-        '<a class="action call" href="tel:' + esc(data.phone) + '">' + ICONS.phone + 'Ara</a>' +
-        '<a class="action whatsapp" href="https://wa.me/' + esc((data.whatsapp || data.phone).replace(/\D/g, '')) + '" target="_blank" rel="noopener">' + ICONS.whatsapp + 'WhatsApp</a>' +
-        '<a class="action mail" href="mailto:' + esc(data.email) + '">' + ICONS.mail + 'E-posta</a>' +
+        '<a class="action call" data-ga="contact_click" data-ga-method="call_button" href="tel:' + esc(data.phone) + '">' + ICONS.phone + 'Ara</a>' +
+        '<a class="action whatsapp" data-ga="contact_click" data-ga-method="whatsapp_button" href="https://wa.me/' + esc((data.whatsapp || data.phone).replace(/\D/g, '')) + '" target="_blank" rel="noopener">' + ICONS.whatsapp + 'WhatsApp</a>' +
+        '<a class="action mail" data-ga="contact_click" data-ga-method="email_button" href="mailto:' + esc(data.email) + '">' + ICONS.mail + 'E-posta</a>' +
         '<a class="action share" href="#" id="shareBtn">' + ICONS.share + 'Paylaş</a>' +
         '</div>' +
         '<div class="list">' + rows + '</div>' +
-        (data.vcf ? '<a class="cta" href="' + esc(data.vcf) + '" download>Rehbere Ekle</a>' : '') +
+        (data.vcf ? '<a class="cta" data-ga="contact_click" data-ga-method="vcf_download" href="' + esc(data.vcf) + '" download>Rehbere Ekle</a>' : '') +
         '<div class="qr-wrap"><img id="qrImg" alt="Kartvizit QR kodu" width="84" height="84">' +
         '<div class="qr-text"><b>Karekodu okutun</b>Bu sayfayı anında telefonunuza açmak için kamerayla okutmanız yeterli.</div></div>' +
         '<footer>Dijital Kartvizit · ' + (data.org ? esc(data.org) : esc(data.name)) + '</footer>' +
         '</div>';
 
-      document.getElementById('app').innerHTML = html;
+      var appEl = document.getElementById('app');
+      appEl.innerHTML = html;
+
+      appEl.addEventListener('click', function (e) {
+        var el = e.target.closest('[data-ga]');
+        if (el && window.gtag) {
+          gtag('event', el.getAttribute('data-ga'), {
+            method: el.getAttribute('data-ga-method'),
+            card: data.name
+          });
+        }
+      });
 
       var url = window.location.href;
       var qrImg = document.getElementById('qrImg');
