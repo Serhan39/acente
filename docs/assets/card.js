@@ -23,24 +23,24 @@
     // data: {name, orgHtml, phone, phoneDisplay, email, website, websiteDisplay, instagram, instagramDisplay, address, mapsUrl, markSrc, vcf}
     render: function (data) {
       var rows = '';
-      rows += '<a class="row" href="tel:' + esc(data.phone) + '">' +
+      rows += '<a class="row" data-ga="contact_click" data-ga-method="phone_row" href="tel:' + esc(data.phone) + '">' +
         '<span class="icon">' + ICONS.phone + '</span>' +
         '<span class="text"><span class="label">Telefon</span><span class="value">' + esc(data.phoneDisplay) + '</span></span></a>';
-      rows += '<a class="row" href="mailto:' + esc(data.email) + '">' +
+      rows += '<a class="row" data-ga="contact_click" data-ga-method="email_row" href="mailto:' + esc(data.email) + '">' +
         '<span class="icon">' + ICONS.mail + '</span>' +
         '<span class="text"><span class="label">E-posta</span><span class="value">' + esc(data.email) + '</span></span></a>';
       if (data.website) {
-        rows += '<a class="row" href="' + esc(data.website) + '" target="_blank" rel="noopener">' +
+        rows += '<a class="row" data-ga="contact_click" data-ga-method="website" href="' + esc(data.website) + '" target="_blank" rel="noopener">' +
           '<span class="icon">' + ICONS.globe + '</span>' +
           '<span class="text"><span class="label">Web Sitesi</span><span class="value">' + esc(data.websiteDisplay || data.website) + '</span></span></a>';
       }
       if (data.instagram) {
-        rows += '<a class="row" href="' + esc(data.instagram) + '" target="_blank" rel="noopener">' +
+        rows += '<a class="row" data-ga="contact_click" data-ga-method="instagram" href="' + esc(data.instagram) + '" target="_blank" rel="noopener">' +
           '<span class="icon">' + ICONS.instagram + '</span>' +
           '<span class="text"><span class="label">Instagram</span><span class="value">' + esc(data.instagramDisplay || '') + '</span></span></a>';
       }
       if (data.address) {
-        rows += '<a class="row" href="' + esc(data.mapsUrl || ('https://maps.google.com/?q=' + encodeURIComponent(data.address))) + '" target="_blank" rel="noopener">' +
+        rows += '<a class="row" data-ga="contact_click" data-ga-method="address" href="' + esc(data.mapsUrl || ('https://maps.google.com/?q=' + encodeURIComponent(data.address))) + '" target="_blank" rel="noopener">' +
           '<span class="icon">' + ICONS.pin + '</span>' +
           '<span class="text"><span class="label">Adres</span><span class="value">' + esc(data.address) + '</span></span></a>';
       }
@@ -51,19 +51,30 @@
         '<p class="org">' + (data.orgHtml || esc(data.org || '')) + '</p>' +
         '</div>' +
         '<div class="actions">' +
-        '<a class="action call" href="tel:' + esc(data.phone) + '">' + ICONS.phone + 'Ara</a>' +
-        '<a class="action whatsapp" href="https://wa.me/' + esc((data.whatsapp || data.phone).replace(/\D/g, '')) + '" target="_blank" rel="noopener">' + ICONS.whatsapp + 'WhatsApp</a>' +
-        '<a class="action mail" href="mailto:' + esc(data.email) + '">' + ICONS.mail + 'E-posta</a>' +
+        '<a class="action call" data-ga="contact_click" data-ga-method="call_button" href="tel:' + esc(data.phone) + '">' + ICONS.phone + 'Ara</a>' +
+        '<a class="action whatsapp" data-ga="contact_click" data-ga-method="whatsapp_button" href="https://wa.me/' + esc((data.whatsapp || data.phone).replace(/\D/g, '')) + '" target="_blank" rel="noopener">' + ICONS.whatsapp + 'WhatsApp</a>' +
+        '<a class="action mail" data-ga="contact_click" data-ga-method="email_button" href="mailto:' + esc(data.email) + '">' + ICONS.mail + 'E-posta</a>' +
         '<a class="action share" href="#" id="shareBtn">' + ICONS.share + 'Paylaş</a>' +
         '</div>' +
         '<div class="list">' + rows + '</div>' +
-        (data.vcf ? '<a class="cta" href="' + esc(data.vcf) + '" download>Rehbere Ekle</a>' : '') +
+        (data.vcf ? '<a class="cta" data-ga="contact_click" data-ga-method="vcf_download" href="' + esc(data.vcf) + '" download>Rehbere Ekle</a>' : '') +
         '<div class="qr-wrap"><img id="qrImg" alt="Kartvizit QR kodu" width="84" height="84">' +
         '<div class="qr-text"><b>Karekodu okutun</b>Bu sayfayı anında telefonunuza açmak için kamerayla okutmanız yeterli.</div></div>' +
         '<footer>Dijital Kartvizit · ' + (data.org ? esc(data.org) : esc(data.name)) + '</footer>' +
         '</div>';
 
-      document.getElementById('app').innerHTML = html;
+      var appEl = document.getElementById('app');
+      appEl.innerHTML = html;
+
+      appEl.addEventListener('click', function (e) {
+        var el = e.target.closest('[data-ga]');
+        if (el && window.gtag) {
+          gtag('event', el.getAttribute('data-ga'), {
+            method: el.getAttribute('data-ga-method'),
+            card: data.name
+          });
+        }
+      });
 
       var url = window.location.href;
       var qrImg = document.getElementById('qrImg');
