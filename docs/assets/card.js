@@ -27,8 +27,6 @@
 
     // data: {name, orgHtml, phone, phoneDisplay, email, website, websiteDisplay, instagram, instagramDisplay, vcf}
     render: function (data) {
-      document.title = data.name + ' — ' + data.name.split(' ')[0];
-
       var rows = '';
       rows += '<a class="row" href="tel:' + esc(data.phone) + '">' +
         '<span class="icon">' + ICONS.phone + '</span>' +
