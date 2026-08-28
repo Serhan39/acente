@@ -185,3 +185,97 @@ footer{
 .dir-name{font-size:15px;font-weight:600;}
 .dir-org{font-size:12.5px;color:var(--muted);margin-top:1px;}
 .dir-arrow{color:var(--muted);flex-shrink:0;}
+
+/* Landing page (kampanya sayfaları) */
+body.landing-body{display:block;padding:0;}
+.landing{max-width:640px;margin:0 auto;padding:0 0 40px;}
+.landing-hero{
+  text-align:center;
+  padding:44px 20px 32px;
+}
+.landing-hero .mark{margin:0 auto 16px;}
+.landing-hero h1{
+  font-size:28px;
+  line-height:1.25;
+  margin:0 0 12px;
+  letter-spacing:-.01em;
+}
+.landing-hero p{
+  color:var(--muted);
+  font-size:15.5px;
+  line-height:1.5;
+  margin:0 auto 26px;
+  max-width:480px;
+}
+.landing-cta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:center;
+}
+.landing-cta a{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:15px 24px;
+  border-radius:14px;
+  text-decoration:none;
+  font-weight:700;
+  font-size:15.5px;
+  letter-spacing:-.01em;
+}
+.landing-cta a svg{width:20px;height:20px;}
+.landing-cta .cta-call{background:var(--ink);color:#fff;}
+.landing-cta .cta-call:active{opacity:.85;}
+.landing-cta .cta-whatsapp{background:#25D366;color:#fff;}
+.landing-cta .cta-whatsapp:active{opacity:.85;}
+
+.landing-badges{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  justify-content:center;
+  padding:0 20px 8px;
+}
+.landing-badge{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:8px 16px;
+  font-size:13px;
+  font-weight:600;
+  color:var(--muted);
+}
+
+.landing-services{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:12px;
+  padding:28px 20px;
+}
+@media (max-width:520px){
+  .landing-services{grid-template-columns:1fr;}
+}
+.landing-service{
+  background:var(--card);
+  border-radius:18px;
+  padding:22px 18px;
+  text-align:center;
+  box-shadow:0 1px 3px rgba(16,20,24,.06), 0 10px 24px rgba(16,20,24,.05);
+}
+.landing-service .icon{
+  width:52px;height:52px;
+  border-radius:14px;
+  background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 14px;
+}
+.landing-service .icon svg{width:26px;height:26px;color:var(--blue);}
+.landing-service h3{font-size:15.5px;margin:0 0 6px;}
+.landing-service p{font-size:13px;color:var(--muted);line-height:1.5;margin:0;}
+
+.landing-footer-cta{
+  text-align:center;
+  padding:8px 20px 36px;
+}
+.landing-footer-cta .cta{max-width:360px;margin:0 auto;}
