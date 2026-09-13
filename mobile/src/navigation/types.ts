@@ -9,7 +9,19 @@ export type DashboardStackParamList = {
 
 export type TransactionsStackParamList = {
   TransactionsList: undefined;
-  TransactionForm: { id?: string } | undefined;
+  TransactionForm:
+    | {
+        id?: string;
+        prefill?: {
+          type: "INCOME" | "EXPENSE";
+          amount: number;
+          date?: string;
+          description?: string;
+          categoryId?: string;
+        };
+      }
+    | undefined;
+  ReceiptScan: undefined;
 };
 
 export type AccountsStackParamList = {

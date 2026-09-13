@@ -24,6 +24,7 @@ API varsayılan olarak `http://localhost:4000` adresinde çalışır, tüm uçla
 | `JWT_EXPIRES_IN` | Token geçerlilik süresi (örn. `7d`) |
 | `PORT` | API portu (varsayılan 4000) |
 | `CORS_ORIGIN` | İzin verilen origin (mobil uygulama için `*` yeterli) |
+| `ANTHROPIC_API_KEY` | Fişten otomatik işlem oluşturma özelliği için Claude API anahtarı (opsiyonel, tanımlı değilse özellik kapalı kalır) |
 
 ## Veri Modeli
 
@@ -61,6 +62,8 @@ POST                 /api/invoices/:id/payments
 POST                 /api/invoices/:id/cancel
 
 GET                  /api/dashboard/summary?months=6
+
+POST                 /api/receipts/scan
 ```
 
 Tüm uçlar (auth hariç) `Authorization: Bearer <token>` header'ı gerektirir.
@@ -91,6 +94,9 @@ Bu proje standart bir Node.js + PostgreSQL uygulaması olduğu için **paylaşı
    - `JWT_SECRET` — uzun/rastgele bir metin
    - `JWT_EXPIRES_IN` — `7d`
    - `CORS_ORIGIN` — `*`
+   - `ANTHROPIC_API_KEY` — fişten otomatik işlem oluşturma özelliği için [console.anthropic.com/settings/keys](https://console.anthropic.com/settings/keys) adresinden alınan anahtar (opsiyonel; eklenmezse özellik "ANTHROPIC_API_KEY tanımlı değil" hatası döner ama sunucu normal çalışmaya devam eder)
+
+   Bir değişkeni ekledikten/değiştirdikten sonra Railway servisi otomatik olarak yeniden deploy eder; elle yeniden başlatmak isterseniz **Deployments** sekmesinden **Redeploy**'a basabilirsiniz.
 6. Deploy tamamlanınca Railway size `https://xxxxx.up.railway.app` gibi bir genel adres verir. `npm start` komutu deploy sırasında otomatik olarak `prisma migrate deploy` çalıştırıp veritabanı şemasını kurar (`package.json` içindeki `start` script'i buna göre ayarlandı).
 7. Bu adresi mobil uygulamanın `.env` dosyasında `EXPO_PUBLIC_API_URL=https://xxxxx.up.railway.app/api` şeklinde kullanın.
 

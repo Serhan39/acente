@@ -25,13 +25,20 @@ const TYPES: { label: string; value: TransactionType }[] = [
 
 export function TransactionFormScreen({ route, navigation }: Props) {
   const editingId = route.params?.id;
-  const [type, setType] = useState<TransactionType>("INCOME");
-  const [amount, setAmount] = useState("");
-  const [date, setDate] = useState(new Date());
-  const [description, setDescription] = useState("");
+  const prefill = route.params?.prefill;
+  const [type, setType] = useState<TransactionType>(prefill?.type ?? "INCOME");
+  const [amount, setAmount] = useState(prefill ? String(prefill.amount) : "");
+  const [date, setDate] = useState(() => {
+    if (prefill?.date) {
+      const parsed = new Date(prefill.date);
+      if (!Number.isNaN(parsed.getTime())) return parsed;
+    }
+    return new Date();
+  });
+  const [description, setDescription] = useState(prefill?.description ?? "");
   const [cashAccountId, setCashAccountId] = useState("");
   const [targetCashAccountId, setTargetCashAccountId] = useState("");
-  const [categoryId, setCategoryId] = useState("");
+  const [categoryId, setCategoryId] = useState(prefill?.categoryId ?? "");
   const [accountId, setAccountId] = useState("");
 
   const [cashAccounts, setCashAccounts] = useState<CashAccount[]>([]);

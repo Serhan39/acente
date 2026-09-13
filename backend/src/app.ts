@@ -13,6 +13,7 @@ import { categoryRouter } from "./modules/categories/category.controller";
 import { transactionRouter } from "./modules/transactions/transaction.controller";
 import { invoiceRouter } from "./modules/invoices/invoice.controller";
 import { dashboardRouter } from "./modules/dashboard/dashboard.controller";
+import { receiptRouter } from "./modules/receipts/receipt.controller";
 
 export const app = express();
 
@@ -28,7 +29,8 @@ app.set("json replacer", function decimalReplacer(this: Record<string, unknown>,
 
 app.use(helmet());
 app.use(cors({ origin: env.corsOrigin }));
-app.use(express.json());
+// Varsayılan 100kb limiti fiş fotoğrafı (base64) yüklemeleri için yetersiz kalıyor.
+app.use(express.json({ limit: "8mb" }));
 app.use(morgan("dev"));
 
 app.get("/health", (_req, res) => res.json({ status: "ok" }));
@@ -40,6 +42,7 @@ app.use("/api/categories", categoryRouter);
 app.use("/api/transactions", transactionRouter);
 app.use("/api/invoices", invoiceRouter);
 app.use("/api/dashboard", dashboardRouter);
+app.use("/api/receipts", receiptRouter);
 
 app.use(notFoundHandler);
 app.use(errorHandler);
